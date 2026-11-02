@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Treasury Vault - ClubTreasury DAO</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Ethers.js v5 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#22c55e',
+              600: '#16a34a',
+              700: '#15803d',
+              900: '#14532d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col font-sans antialiased selection:bg-emerald-500 selection:text-white">
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-40 backdrop-blur-md bg-slate-900/80 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
+          <svg class="w-6 h-6 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <div>
+          <span class="font-extrabold text-lg tracking-tight bg-gradient-to-r from-emerald-400 to-teal-200 bg-clip-text text-transparent">ClubTreasury<span class="text-xs ml-1.5 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">DAO</span></span>
+          <p class="text-[10px] text-slate-400 leading-none">Spring Fiesta 2026</p>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-1 bg-slate-800/60 p-1 rounded-xl border border-slate-700/60 text-sm font-medium">
+        <a href="index.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors">Event Dashboard</a>
+        <a href="treasury.html" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 text-white shadow-sm font-semibold flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+          Treasury Vault
+        </a>
+        <a href="transactionlog.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700/50 transition-colors flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+          Transaction Logs
+        </a>
+      </nav>
+
+      <!-- Wallet & Mode Controls -->
+      <div class="flex items-center gap-2.5">
+        <button id="mode-toggle-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all">
+          <span id="mode-indicator" class="w-2 h-2 rounded-full"></span>
+          <span id="mode-label">Loading...</span>
+        </button>
+
+        <button id="connect-wallet-btn" class="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/25 active:scale-95 transition-all">
+          <span id="wallet-btn-text">Connect Wallet</span>
+        </button>
+
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-nav" class="hidden md:hidden px-4 pt-2 pb-4 border-t border-slate-800 bg-slate-900/95 space-y-1">
+      <a href="index.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 font-medium text-sm">Event Dashboard</a>
+      <a href="treasury.html" class="block px-3 py-2 rounded-lg bg-emerald-600 text-white font-medium text-sm">Treasury Vault</a>
+      <a href="transactionlog.html" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800 font-medium text-sm">Transaction Logs</a>
+    </div>
+  </header>
+
+  <!-- Sandbox Account Switcher Bar -->
+  <div id="sandbox-banner" class="bg-gradient-to-r from-indigo-950 via-slate-900 to-indigo-950 border-b border-indigo-900/40 px-4 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 font-bold uppercase tracking-wider text-[10px]">Simulation Sandbox Active</span>
+        <span class="text-slate-300">Testing on-chain treasury deposits and non-custodial invariants.</span>
+      </div>
+      <div class="flex items-center gap-2 w-full sm:w-auto">
+        <label for="sim-account-select" class="text-slate-400 whitespace-nowrap">Persona:</label>
+        <select id="sim-account-select" class="bg-slate-800 text-slate-200 border border-slate-700 rounded-lg px-2.5 py-1 text-xs focus:ring-1 focus:ring-indigo-500 outline-none w-full sm:w-auto font-medium">
+          <!-- Populated by JS -->
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+    <!-- Page Title Header -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div>
+        <div class="inline-flex items-center gap-2 text-xs font-semibold text-emerald-400 mb-1">
+          <span>🏛️</span> Autonomous Non-Custodial Smart Contract Vault
+        </div>
+        <h1 class="text-3xl font-black text-white tracking-tight">Campus Event Treasury</h1>
+        <p class="text-sm text-slate-400 mt-1 max-w-2xl">
+          Anyone can contribute on their own accord. No single individual can access or withdraw funds. Funds only exit when authorized by code.
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="transactionlog.html" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center gap-2 transition-all">
+          <svg class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+          View All Transactions
+        </a>
+        <a href="index.html" class="px-4 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-semibold flex items-center gap-1.5 transition-all">
+          ← Back to Dashboard
+        </a>
+      </div>
+    </div>
+
+    <!-- Vault Balance Summary Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      
+      <!-- Total Vault Balance Card -->
+      <div class="bg-gradient-to-br from-slate-900 to-emerald-950/40 border border-emerald-500/30 rounded-3xl p-6 shadow-xl relative overflow-hidden">
+        <div class="flex items-center justify-between text-xs text-emerald-400 font-semibold uppercase tracking-wider">
+          <span>Total Vault Balance</span>
+          <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px]">On-Chain Held</span>
+        </div>
+        <div class="mt-4 flex items-baseline gap-2">
+          <span id="vault-total-balance" class="text-4xl font-black text-white">3.8500</span>
+          <span class="text-sm font-bold text-emerald-400">SepoliaETH</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-2">
+          Held inside the verified contract <code class="text-emerald-300 bg-slate-800/80 px-1 py-0.5 rounded text-[10px]">ClubTreasuryDAO.sol</code>
+        </p>
+      </div>
+
+      <!-- Allocated for Programs -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl">
+        <div class="flex items-center justify-between text-xs text-slate-400 font-semibold uppercase tracking-wider">
+          <span>Allocated to Programs</span>
+          <span class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px]">Voted Commitments</span>
+        </div>
+        <div class="mt-4 flex items-baseline gap-2">
+          <span id="vault-allocated-balance" class="text-4xl font-black text-white">2.4500</span>
+          <span class="text-sm font-bold text-indigo-400">SepoliaETH</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-2">
+          Budget earmarked across approved student programs (Robotics, Audio, AI Hackathon).
+        </p>
+      </div>
+
+      <!-- Free Liquid Balance -->
+      <div class="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 shadow-xl">
+        <div class="flex items-center justify-between text-xs text-slate-400 font-semibold uppercase tracking-wider">
+          <span>Unallocated Liquid Vault</span>
+          <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-[10px]">Available</span>
+        </div>
+        <div class="mt-4 flex items-baseline gap-2">
+          <span id="vault-liquid-balance" class="text-4xl font-black text-white">1.4000</span>
+          <span class="text-sm font-bold text-cyan-400">SepoliaETH</span>
+        </div>
+        <p class="text-xs text-slate-400 mt-2">
+          Available for new proposals or unexpected festival logistics.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Dual Column: Contribution Form & No-Backdoor Proof -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      
+      <!-- Contribution Panel (Left - 7 Cols) -->
+      <div class="lg:col-span-7 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl">
+        <div>
+          <div class="inline-flex items-center gap-2 text-xs font-semibold text-emerald-400 mb-1">
+            <span>🎁</span> Open Community Contributions
+          </div>
+          <h2 class="text-2xl font-bold text-white">Contribute to the Festival Treasury</h2>
+          <p class="text-xs text-slate-400 mt-1">
+            Anyone (students, alumni, industry sponsors, clubs) can deposit SepoliaETH at any time. Deposits are pooled automatically into the smart contract.
+          </p>
+        </div>
+
+        <form id="deposit-form" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Contribution Amount (SepoliaETH) *</label>
+            <div class="relative">
+              <input type="number" step="0.001" min="0.001" id="deposit-amount" required placeholder="0.5" class="w-full bg-slate-800/90 border border-slate-700 rounded-2xl px-4 py-3 text-lg font-bold text-white placeholder-slate-500 focus:ring-2 focus:ring-emerald-500 outline-none">
+              <span class="absolute right-4 top-3.5 text-xs font-bold text-emerald-400">SepoliaETH</span>
+            </div>
+            
+            <!-- Quick Fill Buttons -->
+            <div class="flex items-center gap-2 mt-2">
+              <span class="text-slate-500 text-[11px]">Quick presets:</span>
+              <button type="button" class="quick-amt-btn px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700" data-amt="0.1">+0.1 ETH</button>
+              <button type="button" class="quick-amt-btn px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700" data-amt="0.5">+0.5 ETH</button>
+              <button type="button" class="quick-amt-btn px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700" data-amt="1.0">+1.0 ETH</button>
+              <button type="button" class="quick-amt-btn px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700" data-amt="2.5">+2.5 ETH</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-semibold text-slate-300 mb-1">Donor Attribution or Memo (Optional)</label>
+            <input type="text" id="deposit-note" placeholder="e.g. Alumni Class of 2021 Contribution / TechCorp Sponsorship" class="w-full bg-slate-800/90 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white placeholder-slate-500 focus:ring-1 focus:ring-emerald-500 outline-none">
+            <p class="text-[10px] text-slate-500 mt-1">This note will be permanently recorded in the public ledger.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-500/20 text-slate-300 text-[11px] space-y-1">
+            <p class="font-semibold text-emerald-400 flex items-center gap-1.5">
+              <span>🔒</span> Cryptographic Non-Custodial Guarantee
+            </p>
+            <p>Once deposited, not even the contract deployer can withdraw these funds back to a personal wallet. Funds can only be paid out to authorized vendor proposals approved by a vote.</p>
+          </div>
+
+          <button type="submit" id="submit-deposit-btn" class="w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-xl shadow-emerald-600/30 active:scale-95 transition-all flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/></svg>
+            Send Contribution to Treasury
+          </button>
+        </form>
+      </div>
+
+      <!-- No Backdoor & Safety Invariants (Right - 5 Cols) -->
+      <div class="lg:col-span-5 bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-8 space-y-5 shadow-xl">
+        <div class="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
+          <span>🛡️</span> Security Proof for Judges
+        </div>
+        <h3 class="text-xl font-bold text-white">Why No One Can Abuse This Treasury</h3>
+        
+        <div class="space-y-3 text-xs">
+          <!-- Invariant 1 -->
+          <div class="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60 space-y-1">
+            <div class="font-semibold text-emerald-400 flex items-center gap-1.5">
+              <span>1.</span> No Admin Withdrawal Function
+            </div>
+            <p class="text-slate-300">
+              The Solidity code contains <strong>NO</strong> <code>withdraw()</code> or <code>ownerWithdraw()</code>. There is literally no bytecode instruction capable of moving ETH out without passing through <code>executeProposal()</code>.
+            </p>
+          </div>
+
+          <!-- Invariant 2 -->
+          <div class="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60 space-y-1">
+            <div class="font-semibold text-emerald-400 flex items-center gap-1.5">
+              <span>2.</span> Funds Sent Directly to Vendor Address
+            </div>
+            <p class="text-slate-300">
+              Money is never sent to the club president or treasurer. When proposal #1 passed, the contract disbursed directly to SoundCraft Audio Ltd's wallet.
+            </p>
+          </div>
+
+          <!-- Invariant 3 -->
+          <div class="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60 space-y-1">
+            <div class="font-semibold text-emerald-400 flex items-center gap-1.5">
+              <span>3.</span> Reentrancy & Double-Spend Protection
+            </div>
+            <p class="text-slate-300">
+              Strict <code>nonReentrant</code> lock and Checks-Effects-Interactions pattern: <code>proposal.executed = true</code> is written before any ETH is transferred.
+            </p>
+          </div>
+
+          <!-- Invariant 4 -->
+          <div class="p-3.5 rounded-xl bg-slate-800/50 border border-slate-700/60 space-y-1">
+            <div class="font-semibold text-emerald-400 flex items-center gap-1.5">
+              <span>4.</span> Zero Upgradability Backdoors
+            </div>
+            <p class="text-slate-300">
+              Immutable contract deployment. No proxy contracts, no delegatecalls, and no admin keys that can modify rules post-deployment.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Public Contribution History / Donor Hall of Fame -->
+    <section class="space-y-4 pt-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <span>📜</span> Public Inflow Ledger & Contributions
+          </h2>
+          <p class="text-xs text-slate-400">All deposits made by sponsors, alumni, and community members into the smart contract.</p>
+        </div>
+        <span class="text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+          Publicly Verifiable
+        </span>
+      </div>
+
+      <div class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-800/60 text-slate-400 font-semibold uppercase tracking-wider text-[11px] border-b border-slate-700/60">
+              <tr>
+                <th class="px-5 py-3.5">Contributor / Donor</th>
+                <th class="px-5 py-3.5">Purpose / Memo</th>
+                <th class="px-5 py-3.5">Amount</th>
+                <th class="px-5 py-3.5">Date & Time</th>
+                <th class="px-5 py-3.5">Transaction Hash</th>
+              </tr>
+            </thead>
+            <tbody id="deposits-table-body" class="divide-y divide-slate-800/80 text-slate-300">
+              <!-- Populated by treasury.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-slate-800 bg-slate-900/60 py-6 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>ClubTreasury DAO • Campus Event Transparency Protocol</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="hover:text-white">Dashboard</a>
+        <a href="treasury.html" class="text-emerald-400 font-semibold">Treasury Vault</a>
+        <a href="transactionlog.html" class="hover:text-white">Transaction Logs</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/abi.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/treasury.js"></script>
+</body>
+</html>

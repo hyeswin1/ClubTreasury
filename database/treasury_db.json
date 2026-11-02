@@ -1,0 +1,390 @@
+{
+  "organizationName": "Inter-College Spring Tech & Cultural Fiesta 2026",
+  "treasuryBalance": 3.85,
+  "committedFunds": 0,
+  "contractAddress": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+  "network": "Ethereum Sepolia (Chain ID: 11155111)",
+  "programs": [
+    {
+      "id": "prog_robotics",
+      "club": "Robotics & Hardware Club",
+      "lead": "Priya Sharma",
+      "avatar": "🤖",
+      "title": "Autonomous Maze Bot & Robo-Wars Arena",
+      "estimatedBudget": 0.45,
+      "allocatedAmount": 0.45,
+      "status": "Approved",
+      "color": "blue",
+      "breakdown": [
+        {
+          "item": "Arena Acrylic & Plywood Flooring",
+          "cost": 0.18
+        },
+        {
+          "item": "Arduino Mega & Ultrasonic Sensors Pack",
+          "cost": 0.15
+        },
+        {
+          "item": "LiPo Batteries & Motor Drivers",
+          "cost": 0.12
+        }
+      ]
+    },
+    {
+      "id": "prog_coding",
+      "club": "Coding & AI Society",
+      "lead": "Kavya Patel",
+      "avatar": "💻",
+      "title": "24-Hour AI Innovation Hackathon",
+      "estimatedBudget": 0.6,
+      "allocatedAmount": 0.6,
+      "status": "In Review",
+      "color": "indigo",
+      "breakdown": [
+        {
+          "item": "Cloud GPU Compute Credits (A100 instances)",
+          "cost": 0.3
+        },
+        {
+          "item": "Winner Prize Pool (1st & 2nd place)",
+          "cost": 0.2
+        },
+        {
+          "item": "Participant Swag & Git Badges",
+          "cost": 0.1
+        }
+      ]
+    },
+    {
+      "id": "prog_cultural",
+      "club": "Cultural & Performing Arts Guild",
+      "lead": "Rohan Verma",
+      "avatar": "🎭",
+      "title": "Mainstage Acoustic & Dramatic Musical",
+      "estimatedBudget": 0.8,
+      "allocatedAmount": 0.8,
+      "status": "Approved",
+      "color": "purple",
+      "breakdown": [
+        {
+          "item": "Dual 10kW Line Array Speakers & Mixer Rental",
+          "cost": 0.45
+        },
+        {
+          "item": "Stage Ambient Par-LED Lighting Rig",
+          "cost": 0.2
+        },
+        {
+          "item": "Wireless Sennheiser Vocal Mics (Set of 6)",
+          "cost": 0.15
+        }
+      ]
+    },
+    {
+      "id": "prog_media",
+      "club": "Design & Media Collective",
+      "lead": "Ananya Gupta",
+      "avatar": "🎨",
+      "title": "Campus Live Broadcast & Stage Branding",
+      "estimatedBudget": 0.25,
+      "allocatedAmount": 0.25,
+      "status": "Approved",
+      "color": "amber",
+      "breakdown": [
+        {
+          "item": "HDMI 4K Capture Cards & Cabling",
+          "cost": 0.12
+        },
+        {
+          "item": "Eco-Friendly Recycled Stage Banners",
+          "cost": 0.08
+        },
+        {
+          "item": "Live Stream CDN & Twitch Overlays",
+          "cost": 0.05
+        }
+      ]
+    },
+    {
+      "id": "prog_esports",
+      "club": "Sports & E-Sports Council",
+      "lead": "Tanmay Sen",
+      "avatar": "🏆",
+      "title": "Campus Valorant & Chess Blitz Tournament",
+      "estimatedBudget": 0.35,
+      "allocatedAmount": 0,
+      "status": "Pending Vote",
+      "color": "emerald",
+      "breakdown": [
+        {
+          "item": "Custom Laser-Engraved Championship Trophies",
+          "cost": 0.15
+        },
+        {
+          "item": "Low-Latency Gigabit Switch Hubs",
+          "cost": 0.1
+        },
+        {
+          "item": "Certified Referee Stipend",
+          "cost": 0.1
+        }
+      ]
+    }
+  ],
+  "members": [
+    {
+      "address": "0xAlex89B1cD5e342Eaa99757f4955bFc31cDb21A7",
+      "name": "Alex Chen",
+      "club": "Student Council Treasury Rep",
+      "role": "Deployer / Council Rep",
+      "verificationId": "STU-2026-CH-0192",
+      "isVerified": true,
+      "joinedAt": "2026-10-15"
+    },
+    {
+      "address": "0xPriya3C73f06922D96aD13E72a81878d65C4F7Eb",
+      "name": "Priya Sharma",
+      "club": "Robotics Club Lead",
+      "role": "Club Representative",
+      "verificationId": "STU-2026-ROBO-4819",
+      "isVerified": true,
+      "joinedAt": "2026-10-16"
+    },
+    {
+      "address": "0xRohan7398b671A65E68e27c191a613C3f848cAfF0",
+      "name": "Rohan Verma",
+      "club": "Cultural Guild Lead",
+      "role": "Club Representative",
+      "verificationId": "STU-2026-ARTS-8391",
+      "isVerified": true,
+      "joinedAt": "2026-10-16"
+    },
+    {
+      "address": "0xKavya9F2A197eCdCc18bB357F322dE9C168e3195",
+      "name": "Kavya Patel",
+      "club": "Coding & AI Lead",
+      "role": "Club Representative",
+      "verificationId": "STU-2026-CS-9921",
+      "isVerified": true,
+      "joinedAt": "2026-10-17"
+    },
+    {
+      "address": "0xTanmay5D256AcFF2f7d98305E067Ac24B48Db5D29",
+      "name": "Tanmay Sen",
+      "club": "Sports Council Lead",
+      "role": "Club Representative",
+      "verificationId": "STU-2026-SPORTS-1120",
+      "isVerified": true,
+      "joinedAt": "2026-10-18"
+    }
+  ],
+  "applications": [
+    {
+      "applicant": "0xMayaLin920194820194820194820194820194820",
+      "name": "Maya Lin",
+      "clubAffiliation": "Photography & Film Guild",
+      "verificationId": "STU-2026-MEDIA-4412",
+      "approvals": 1,
+      "isApproved": false,
+      "appliedAt": "2026-10-29 11:20"
+    }
+  ],
+  "proposals": [
+    {
+      "id": 1,
+      "title": "Acoustic Audio Consoles & Stage Rig",
+      "description": "Direct rental contract with SoundCraft Event Audio for 3-day outdoor line array speakers and stage monitor consoles.",
+      "programCategory": "Cultural & Performing Arts Guild",
+      "recipient": "0xVendorAudio9948271BcDe93847291a84f32981bcde",
+      "recipientName": "SoundCraft Audio Services Ltd.",
+      "invoiceNumber": "INV-SND-2026-904",
+      "amount": 0.8,
+      "snapshotMembers": 4,
+      "forVotes": 4,
+      "againstVotes": 0,
+      "voters": [
+        "0xAlex89B1cD5e342Eaa99757f4955bFc31cDb21A7",
+        "0xPriya3C73f06922D96aD13E72a81878d65C4F7Eb",
+        "0xRohan7398b671A65E68e27c191a613C3f848cAfF0",
+        "0xKavya9F2A197eCdCc18bB357F322dE9C168e3195"
+      ],
+      "executed": true,
+      "executedAt": "2026-10-24 16:30",
+      "txHash": "0x78ab29c4de8390bca235492193eab908321049281a8c9b98d2491a384f932840",
+      "deadline": 1792842000,
+      "proposer": "0xRohan7398b671A65E68e27c191a613C3f848cAfF0",
+      "proposerName": "Rohan Verma"
+    },
+    {
+      "id": 2,
+      "title": "Robo-Wars Combat Arena Plyboards & Sensor Kits",
+      "description": "Bulk purchase of bulletproof polycarbonate barriers, steel framing, Arduino Mega boards, and ultrasonic collision sensors.",
+      "programCategory": "Robotics & Hardware Club",
+      "recipient": "0xVendorRoboTech849201948201a93840291a829104",
+      "recipientName": "RoboSupply Direct Tech",
+      "invoiceNumber": "INV-ROBO-8819",
+      "amount": 0.45,
+      "snapshotMembers": 4,
+      "forVotes": 3,
+      "againstVotes": 1,
+      "voters": [
+        "0xAlex89B1cD5e342Eaa99757f4955bFc31cDb21A7",
+        "0xPriya3C73f06922D96aD13E72a81878d65C4F7Eb",
+        "0xTanmay5D256AcFF2f7d98305E067Ac24B48Db5D29"
+      ],
+      "executed": true,
+      "executedAt": "2026-10-27 11:15",
+      "txHash": "0x12fc9908da4721950aaee7651034f7b2c93841a0846201bcf9128038f884917a",
+      "deadline": 1793101200,
+      "proposer": "0xPriya3C73f06922D96aD13E72a81878d65C4F7Eb",
+      "proposerName": "Priya Sharma"
+    },
+    {
+      "id": 3,
+      "title": "AI Hackathon Cloud GPU Cluster Vouchers",
+      "description": "Allocating compute vouchers for 25 student teams training open-weight LLMs and computer vision models on LambdaLabs.",
+      "programCategory": "Coding & AI Society",
+      "recipient": "0xCloudCreditsGPU492019482910482910395820",
+      "recipientName": "Lambda Cloud GPU Services",
+      "invoiceNumber": "QTE-LAMBDA-GPU-012",
+      "amount": 0.6,
+      "snapshotMembers": 5,
+      "forVotes": 2,
+      "againstVotes": 0,
+      "voters": [
+        "0xAlex89B1cD5e342Eaa99757f4955bFc31cDb21A7",
+        "0xKavya9F2A197eCdCc18bB357F322dE9C168e3195"
+      ],
+      "executed": false,
+      "executedAt": null,
+      "txHash": null,
+      "deadline": 1794500000,
+      "proposer": "0xKavya9F2A197eCdCc18bB357F322dE9C168e3195",
+      "proposerName": "Kavya Patel"
+    },
+    {
+      "id": 4,
+      "title": "Championship Trophies & LAN Routing Equipment",
+      "description": "Custom engraved brass trophies for campus esports finals and 10Gbps switches for competitive stage setups.",
+      "programCategory": "Sports & E-Sports Council",
+      "recipient": "0xTrophyCraftSports94829104829104829104829",
+      "recipientName": "Apex Trophies & Tech Co.",
+      "invoiceNumber": "QTE-APEX-9920",
+      "amount": 0.35,
+      "snapshotMembers": 5,
+      "forVotes": 1,
+      "againstVotes": 0,
+      "voters": [
+        "0xTanmay5D256AcFF2f7d98305E067Ac24B48Db5D29"
+      ],
+      "executed": false,
+      "executedAt": null,
+      "txHash": null,
+      "deadline": 1794600000,
+      "proposer": "0xTanmay5D256AcFF2f7d98305E067Ac24B48Db5D29",
+      "proposerName": "Tanmay Sen"
+    }
+  ],
+  "deposits": [
+    {
+      "id": "dep_1",
+      "donor": "0xAlumniCouncilFoundation948201948201948201",
+      "donorName": "Alumni Association Grant",
+      "amount": 2.5,
+      "note": "Annual Student Innovation & Culture Endowment",
+      "timestamp": "2026-10-12 10:00",
+      "txHash": "0x44bf0912c0194829103948201948201948201948201948201948201948201948"
+    },
+    {
+      "id": "dep_2",
+      "donor": "0xCampusFestCorporateSponsor849201948201",
+      "donorName": "TechCorp Global Inc.",
+      "amount": 1.5,
+      "note": "Title Sponsorship for AI Hackathon Arena",
+      "timestamp": "2026-10-18 14:22",
+      "txHash": "0x892a019482019482019482019482019482019482019482019482019482019482"
+    },
+    {
+      "id": "dep_3",
+      "donor": "0xStudentTicketEscrow948201948201948201",
+      "donorName": "Early-Bird Ticket Receipts",
+      "amount": 1.1,
+      "note": "Batch 1 Student Pass Registrations",
+      "timestamp": "2026-10-21 09:45",
+      "txHash": "0x61ac019482019482019482019482019482019482019482019482019482019482"
+    }
+  ],
+  "transactionLogs": [
+    {
+      "id": "tx_101",
+      "type": "DEPOSIT",
+      "title": "Alumni Association Grant Inflow",
+      "program": "General Festival Endowment",
+      "amount": 2.5,
+      "from": "0xAlumniCouncilFoundation948201948201948201",
+      "to": "Club Treasury Vault",
+      "status": "Confirmed",
+      "txHash": "0x44bf0912c0194829103948201948201948201948201948201948201948201948",
+      "timestamp": "2026-10-12 10:00",
+      "description": "Direct community funding contribution received by the smart contract."
+    },
+    {
+      "id": "tx_102",
+      "type": "DEPOSIT",
+      "title": "TechCorp Title Sponsorship Inflow",
+      "program": "Coding & AI Society",
+      "amount": 1.5,
+      "from": "0xCampusFestCorporateSponsor849201948201",
+      "to": "Club Treasury Vault",
+      "status": "Confirmed",
+      "txHash": "0x892a019482019482019482019482019482019482019482019482019482019482",
+      "timestamp": "2026-10-18 14:22",
+      "description": "Sponsorship grant for student tech infrastructure."
+    },
+    {
+      "id": "tx_103",
+      "type": "PAYOUT",
+      "title": "Acoustic Audio Consoles & Stage Rig",
+      "program": "Cultural & Performing Arts Guild",
+      "amount": 0.8,
+      "from": "Club Treasury Vault",
+      "to": "0xVendorAudio9948271BcDe93847291a84f32981bcde",
+      "recipientName": "SoundCraft Audio Services Ltd.",
+      "invoiceNumber": "INV-SND-2026-904",
+      "approvedBy": "Council Vote (4 Yes - 0 No)",
+      "status": "Executed On-Chain",
+      "txHash": "0x78ab29c4de8390bca235492193eab908321049281a8c9b98d2491a384f932840",
+      "timestamp": "2026-10-24 16:30",
+      "description": "Disbursed directly from smart contract to vendor wallet following passed governance vote #1."
+    },
+    {
+      "id": "tx_104",
+      "type": "DEPOSIT",
+      "title": "Early-Bird Ticket Receipts",
+      "program": "General Treasury Reserve",
+      "amount": 1.1,
+      "from": "0xStudentTicketEscrow948201948201948201",
+      "to": "Club Treasury Vault",
+      "status": "Confirmed",
+      "txHash": "0x61ac019482019482019482019482019482019482019482019482019482019482",
+      "timestamp": "2026-10-21 09:45",
+      "description": "Public contribution from ticket revenue."
+    },
+    {
+      "id": "tx_105",
+      "type": "PAYOUT",
+      "title": "Robo-Wars Combat Arena Plyboards & Sensor Kits",
+      "program": "Robotics & Hardware Club",
+      "amount": 0.45,
+      "from": "Club Treasury Vault",
+      "to": "0xVendorRoboTech849201948201a93840291a829104",
+      "recipientName": "RoboSupply Direct Tech",
+      "invoiceNumber": "INV-ROBO-8819",
+      "approvedBy": "Council Vote (3 Yes - 1 No)",
+      "status": "Executed On-Chain",
+      "txHash": "0x12fc9908da4721950aaee7651034f7b2c93841a0846201bcf9128038f884917a",
+      "timestamp": "2026-10-27 11:15",
+      "description": "Hardware acquisition funds sent directly to verified hardware supplier."
+    }
+  ]
+}
